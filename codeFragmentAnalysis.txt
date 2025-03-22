@@ -1,0 +1,37 @@
+Are these code fragments equal? In other words, do they behave the same way in any circumstances, for any handler functions?
+
+promise.then(f1).catch(f2);
+Versus:
+
+promise.then(f1, f2);
+
+No, these two code fragments are not equivalent and do not behave the same way in all cases.
+
+Differences Between promise.then(f1).catch(f2); and promise.then(f1, f2);
+1. promise.then(f1).catch(f2);
+javascript
+Copy
+Edit
+promise.then(f1).catch(f2);
+If the promise fulfills, f1 executes.
+
+If the promise rejects, f2 executes.
+
+If f1 throws an error or returns a rejected promise, f2 also executes (since .catch(f2) catches errors from .then(f1)).
+
+2. promise.then(f1, f2);
+javascript
+Copy
+Edit
+promise.then(f1, f2);
+If the promise fulfills, f1 executes.
+
+If the promise rejects, f2 executes.
+
+If f1 throws an error or returns a rejected promise, f2 does not handle that error (because f2 only catches the original promise rejection, not errors from f1).
+
+Key Difference: Error Handling of f1
+In the first case (.then(f1).catch(f2)), f2 catches errors that occur in f1.
+
+In the second case (.then(f1, f2)), f2 only handles the initial promise rejection but not any errors thrown inside f1.
+
